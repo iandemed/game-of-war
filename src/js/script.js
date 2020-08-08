@@ -47,6 +47,17 @@ class Player{
     }
 }
 
+class Game{
+    constructor(){
+        this.players = []
+    }
+
+    addPlayer(newPlayer) {
+        if (this.players.length < 2){
+            this.players.push(newPlayer)
+        }
+    }
+}
 
 
 // Initialize the necessary arrays to create the deck
@@ -66,10 +77,14 @@ for (suit of suits){
     }
 }
 
+let gameOfWar = new Game()
+
 let warDeck = new Deck(cardArray)
 warDeck.shuffle()
 
-let travis = new Player("Travis", warDeck.split())
+let travis = new Player("Travis", warDeck)
+gameOfWar.addPlayer(travis)
 
 console.log(travis.deck)
 console.log(warDeck.length)
+console.log(gameOfWar.players)
