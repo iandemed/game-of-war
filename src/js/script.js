@@ -72,6 +72,22 @@ class Game{
             this.players.push(newPlayer)
         }
     }
+
+    playRound(){
+        let player1Draw = this.players[0].deck.draw()
+        let player2Draw = this.players[1].deck.draw()
+        
+        if (player1Draw.score > player2Draw.score){
+            console.log(`${this.players[0].name} wins with a ${player1Draw.rank} of ${player1Draw.suit}s`)
+            console.log(`${this.players[1].name} drew a ${player2Draw.rank} of ${player2Draw.suit}s`)
+        } else if (player1Draw.score < player2Draw.score){
+            console.log(`${this.players[1].name} wins with a ${player2Draw.rank} of ${player2Draw.suit}s`)
+            console.log(`${this.players[0].name} drew a ${player1Draw.rank} of ${player1Draw.suit}s`)
+        } else {
+            console.log(`Both players drew a ${player1Draw.rank} of ${player1Draw.suit}`)
+            console.log(`THIS MEANS WAR!`)
+        }
+    } 
 }
 
 
@@ -106,6 +122,6 @@ gameOfWar.addPlayer(travis)
 let ian = new Player("Ian", deck2)
 gameOfWar.addPlayer(ian)
 
-console.log(travis.deck)
-console.log(ian.deck)
-console.log(gameOfWar.players)
+gameOfWar.playRound()
+
+console.log(ian.deck.length)
