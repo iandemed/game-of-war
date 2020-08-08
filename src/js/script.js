@@ -18,10 +18,9 @@ class Deck{
     }
 
     draw(){
-        let drawnCard = this.cards.splice(Math.floor(Math.random()*this.length),1)[0]
         this.length -= 1
 
-        return drawnCard
+        return this.cards.shift()
     }
 
     // Implement the Fisher-Yates shuffle algorithm
@@ -57,4 +56,5 @@ for (suit of suits){
 let deck = new Deck(cardArray)
 deck.shuffle()
 
-console.log(deck.cards)
+console.log(deck.draw())
+console.log(deck.length)
