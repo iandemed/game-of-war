@@ -33,6 +33,21 @@ class Deck{
           this.cards[j] = temp
         }
     }
+
+    split(){
+
+        /* After some reading on probablity in card games, I found
+        that as long as the shuffle was perfectly random, the order
+        in which the cards are dealt is irrelevant. For now, I will
+        use a naive split of the cards to "deal" them out to a new
+        player */
+
+        let dealtCards = cardArray.splice(this.length/2, this.length/2)
+        this.length /=2
+
+        return dealtCards
+
+    }
 }
 
 class Player{
@@ -79,12 +94,18 @@ for (suit of suits){
 
 let gameOfWar = new Game()
 
-let warDeck = new Deck(cardArray)
-warDeck.shuffle()
+let deck1 = new Deck(cardArray)
+deck1.shuffle()
 
-let travis = new Player("Travis", warDeck)
+let deck2 = new Deck(deck1.split())
+
+
+let travis = new Player("Travis", deck1)
 gameOfWar.addPlayer(travis)
 
+let ian = new Player("Ian", deck2)
+gameOfWar.addPlayer(ian)
+
 console.log(travis.deck)
-console.log(warDeck.length)
+console.log(ian.deck)
 console.log(gameOfWar.players)
