@@ -22,6 +22,11 @@ class Deck{
         return this.cards.shift()
     }
 
+    addCards(newCards){
+        this.length += newCards.length
+        this.cards.push(...newCards)
+    }
+
     // Implement the Fisher-Yates shuffle algorithm
     shuffle(){
         let j, temp = null
@@ -64,7 +69,7 @@ class Player{
 class Game{
     constructor(){
         this.players = []
-        war = false
+        this.war = false
     }
 
     addPlayer(newPlayer) {
@@ -80,9 +85,14 @@ class Game{
         if (player1Draw.score > player2Draw.score){
             console.log(`${this.players[0].name} wins with a ${player1Draw.rank} of ${player1Draw.suit}s`)
             console.log(`${this.players[1].name} drew a ${player2Draw.rank} of ${player2Draw.suit}s`)
+
+            this.players[0].deck.addCards([player1Draw, player2Draw])
+
         } else if (player1Draw.score < player2Draw.score){
             console.log(`${this.players[1].name} wins with a ${player2Draw.rank} of ${player2Draw.suit}s`)
             console.log(`${this.players[0].name} drew a ${player1Draw.rank} of ${player1Draw.suit}s`)
+
+            this.players[1].deck.addCards([player1Draw, player2Draw])
         } else {
             console.log(`Both players drew a ${player1Draw.rank} of ${player1Draw.suit}`)
             console.log(`THIS MEANS WAR!`)
@@ -123,5 +133,3 @@ let ian = new Player("Ian", deck2)
 gameOfWar.addPlayer(ian)
 
 gameOfWar.playRound()
-
-console.log(ian.deck.length)
