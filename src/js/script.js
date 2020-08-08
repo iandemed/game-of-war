@@ -54,7 +54,6 @@ class Player{
     constructor(name, deck){
         this.name = name
         this.deck = deck
-        this.discardPile = []
     }
 
     remainingCards(){
@@ -65,6 +64,7 @@ class Player{
 class Game{
     constructor(){
         this.players = []
+        war = false
     }
 
     addPlayer(newPlayer) {
