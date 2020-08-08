@@ -63,10 +63,6 @@ Additionally, your project should meet the following requirements:
 - Break the project down into different components. What are the pieces to this problem? Solve them each individually and build towards a solution for the overall problem. Teach each piece individually before moving on!
 - Make it work, make it good, make it fast. This is a common developer axiom. It means: focus first on making something work (even if it isn't well written or it's buggy). Then, turn to making it work well. Then, and only then, start to worry about other things like performance.
 
-## Plagiarism
-
-Take a moment to refamiliarize yourself with the [Plagiarism policy](https://git.generalassemb.ly/DC-WDI/Administrative/blob/master/plagiarism.md). Plagiarized work will not be accepted.
-
 ## [License](LICENSE)
 
 1.  All content is licensed under a CC­BY­NC­SA 4.0 license.
