@@ -12,7 +12,7 @@ class Card{
 }
 
 class Deck{
-    constructor(cards, length){
+    constructor(cards){
     this.cards = cards
     this.length = cards.length
     }
@@ -23,9 +23,21 @@ class Deck{
 
         return drawnCard
     }
+
+    // Implement the Fisher-Yates shuffle algorithm
+    shuffle(){
+        let j, temp = null
+  
+        for (let i = this.cards.length - 1; i > 0; i--) {
+          j = Math.floor(Math.random() * (i+1))
+          temp = this.cards[i]
+          this.cards[i] = this.cards[j]
+          this.cards[j] = temp
+        }
+    }
 }
 
-// Initialize the necessary arrays
+// Initialize the necessary arrays to create the deck
 let suits = ['Spade', "Club", "Heart", "Diamond"]
 
 let cardRanks = ['Two', 'Three', 'Four', 'Five', 
@@ -35,9 +47,14 @@ let cardRanks = ['Two', 'Three', 'Four', 'Five',
 
 let cardArray = [] 
  
-
+// Create an array for a full 52 deck of cards
 for (suit of suits){
-    for (i = 0; i < cardRanks.length; i++){
+    for (let i = 0; i < cardRanks.length; i++){
         cardArray.push(new Card(suit, cardRanks[i], i+2))
     }
 }
+
+let deck = new Deck(cardArray)
+deck.shuffle()
+
+console.log(deck.cards)
