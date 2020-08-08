@@ -19,7 +19,6 @@ class Deck{
 
     draw(){
         this.length -= 1
-
         return this.cards.shift()
     }
 
@@ -33,6 +32,21 @@ class Deck{
           this.cards[i] = this.cards[j]
           this.cards[j] = temp
         }
+    }
+
+    split(){
+
+        /* 
+        After some reading on the probability in card games, I found
+        that as long as the shuffle was perfectly random, the order in
+        which the cards were dealt is irrelevant, for now, I assume a
+        naive split of the cards
+        */
+
+        let dealtCards = cardArray.splice(this.length/2, this.length/2)
+        this.length /= 2
+
+        return dealtCards
     }
 }
 
@@ -53,8 +67,11 @@ for (suit of suits){
     }
 }
 
-let deck = new Deck(cardArray)
-deck.shuffle()
+let deck1 = new Deck(cardArray)
+deck1.shuffle()
 
-console.log(deck.draw())
-console.log(deck.length)
+
+let testArray = deck1.deal()
+
+console.log(deck1.length)
+console.log(testArray)
