@@ -70,7 +70,6 @@ class Player{
 class Game{
     constructor(){
         this.players = []
-        this.war = false
     }
 
     addPlayer(newPlayer) {
@@ -95,6 +94,9 @@ class Game{
         let compCard1 = drawnCards1[i]
         let compCard2 = drawnCards2[i]
 
+        console.log(compCard1)
+        console.log(compCard2)
+
         if (compCard1.score > compCard2.score){
             console.log(`${this.players[0].name} wins with a ${compCard1.rank} of ${compCard1.suit}s`)
             console.log(`${this.players[1].name} drew a ${compCard2.rank} of ${compCard2.suit}s`)
@@ -110,15 +112,17 @@ class Game{
         } else {
             console.log(`Both players drew a ${compCard1.rank} of ${compCard1.suit}`)
             console.log(`THIS MEANS WAR!`)
+
+            
+            this.goToWar(drawnCards1, drawnCards2)
         }
     }
 
     goToWar(card1, card2){
-        let warPile1 = [...card1, this.players[0].deck.draw, this.players[0].deck.draw]
-        let warPile2 = [...card2, this.players[1].deck.draw, this.players[1].deck.draw]
+        let warPile1 = [...card1, this.players[0].deck.draw(), this.players[0].deck.draw()]
+        let warPile2 = [...card2, this.players[1].deck.draw(), this.players[1].deck.draw()]
 
         this.compareCards(warPile1, warPile2)
-
     }
 }
 
@@ -156,4 +160,4 @@ gameOfWar.addPlayer(ian)
 
 gameOfWar.playRound()
 
-console.log(ian.deck)
+console.log(ian.deck.length)
