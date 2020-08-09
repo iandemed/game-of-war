@@ -69,7 +69,6 @@ class Player{
 class Game{
     constructor(){
         this.players = []
-        this.war = false
     }
 
     addPlayer(newPlayer) {
@@ -82,22 +81,33 @@ class Game{
         let player1Draw = this.players[0].deck.draw()
         let player2Draw = this.players[1].deck.draw()
         
-        if (player1Draw.score > player2Draw.score){
-            console.log(`${this.players[0].name} wins with a ${player1Draw.rank} of ${player1Draw.suit}s`)
-            console.log(`${this.players[1].name} drew a ${player2Draw.rank} of ${player2Draw.suit}s`)
+        this.compareCards(player1Draw, player2Draw)
 
-            this.players[0].deck.addCards([player1Draw, player2Draw])
+    } 
 
-        } else if (player1Draw.score < player2Draw.score){
-            console.log(`${this.players[1].name} wins with a ${player2Draw.rank} of ${player2Draw.suit}s`)
-            console.log(`${this.players[0].name} drew a ${player1Draw.rank} of ${player1Draw.suit}s`)
+    compareCards(card1, card2){
+        if (card1.score > card2.score){
+            console.log(`${this.players[0].name} wins with a ${card1.rank} of ${card1.suit}s`)
+            console.log(`${this.players[1].name} drew a ${card2.rank} of ${card2.suit}s`)
 
-            this.players[1].deck.addCards([player1Draw, player2Draw])
+            this.players[0].deck.addCards([card1, card2])
+
+        } else if (card1.score < card2.score){
+            console.log(`${this.players[1].name} wins with a ${card2.rank} of ${card2.suit}s`)
+            console.log(`${this.players[0].name} drew a ${card1.rank} of ${card1.suit}s`)
+
+            this.players[1].deck.addCards([card1, card2])
         } else {
-            console.log(`Both players drew a ${player1Draw.rank} of ${player1Draw.suit}`)
+            console.log(`Both players drew a ${card1.rank} of ${card1.suit}`)
             console.log(`THIS MEANS WAR!`)
         }
-    } 
+    }
+
+    goToWar(card1, card2){
+        let warPile1 = [card1, this.players[0].deck.draw, this.players[0].deck.draw]
+        let warPile2 = [card, this.players[1].deck.draw, this.players[1].deck.draw]
+
+    }
 }
 
 
@@ -131,5 +141,6 @@ gameOfWar.addPlayer(travis)
 
 let ian = new Player("Ian", deck2)
 gameOfWar.addPlayer(ian)
+
 
 gameOfWar.playRound()
