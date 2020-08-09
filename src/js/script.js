@@ -153,25 +153,6 @@ class Game{
         
         this.compareCards(warPile1, warPile2)
     }
-
-    startGame(){
-
-        // Initialize the necessary arrays to create the deck
-        let suits = ['Spade', "Club", "Heart", "Diamond"]
-
-        let cardRanks = ['Two', 'Three', 'Four', 'Five', 
-                        'Six', 'Seven', 'Eight', 'Nine', 
-                        'Ten', 'Jack', 'Queen','King','Ace']              
-
-
-        let cardArray = [] 
-        // Create an array for a full 52 deck of cards
-        for (suit of suits){
-            for (let i = 0; i < cardRanks.length; i++){
-                cardArray.push(new Card(suit, cardRanks[i], i+2))
-            }
-        }
-    }
 }
 
 
@@ -210,6 +191,8 @@ playerName = prompt("What is your name Player 2?")
 let p2 = new Player(playerName, deck2)
 gameOfWar.addPlayer(p2)
 
-gameOfWar.playRound()
-
-console.log(p2.deck.length)
+if (confirm("Are you ready to begin?")){
+    gameOfWar.playRound()
+} else {
+    console.log("Come back when you are ready!")
+}
