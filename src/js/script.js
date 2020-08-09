@@ -70,6 +70,7 @@ class Player{
 class Game{
     constructor(){
         this.players = []
+        this.gameOn = true
     }
 
     addPlayer(newPlayer) {
@@ -83,7 +84,7 @@ class Game{
         let player1Draw = [this.players[0].deck.draw()]
         let player2Draw = [this.players[1].deck.draw()]
         
-        this.compareCards(player1Draw, player2Draw)
+        return this.compareCards(player1Draw, player2Draw)
 
     } 
 
@@ -99,20 +100,21 @@ class Game{
         let compCard1 = drawnCards1[i]
         let compCard2 = drawnCards2[j]
 
-        console.log(compCard1)
-        console.log(compCard2)
-
         if (compCard1.score > compCard2.score){
+            
+            this.players[0].deck.addCards([drawnCards1, drawnCards2].flat())
+            
             console.log(`${this.players[0].name} wins with a ${compCard1.rank} of ${compCard1.suit}s`)
             console.log(`${this.players[1].name} drew a ${compCard2.rank} of ${compCard2.suit}s`)
 
-            this.players[0].deck.addCards([drawnCards1, drawnCards2].flat())
+            
 
         } else if (compCard1.score < compCard2.score){
+            
+            this.players[1].deck.addCards([drawnCards1, drawnCards2].flat())
+            
             console.log(`${this.players[1].name} wins with a ${compCard2.rank} of ${compCard2.suit}s`)
             console.log(`${this.players[0].name} drew a ${compCard1.rank} of ${compCard1.suit}s`)
-
-            this.players[1].deck.addCards([drawnCards1, drawnCards2].flat())
 
         } else {
             console.log(`Both players drew a ${compCard1.rank}!`)
@@ -153,6 +155,24 @@ class Game{
         
         this.compareCards(warPile1, warPile2)
     }
+
+    play(){
+
+        let msg = ""
+
+        while (this.gameOn){
+            this.playRound()
+
+            console.log(`${this.players[0].name} has ${this.players[0].remainingCards()}`)
+            console.log(`${this.players[1].name} has ${this.players[1].remainingCards()}`)
+
+            if(!confirm("Are you ready for the next round?")){
+                this.gameOn = false;
+            }
+        }
+
+        console.log("Thank you for playing!")
+    }
 }
 
 
@@ -173,26 +193,29 @@ for (let suit of suits){
     }
 }
 
+/* Create the two decks that the players will use */
+
 let deck1 = new Deck(cardArray)
 deck1.shuffle()
 
 let deck2 = new Deck(deck1.split())
 
+/* Initialize the game */
 
 let gameOfWar = new Game()
 
+/* Create player 1 and give them the appropriate deck*/
 let playerName = prompt("What is your name Player 1?")
-
 let p1 = new Player(playerName, deck1)
 gameOfWar.addPlayer(p1)
 
+/* Create player 2 and give them the appropriate deck*/
 playerName = prompt("What is your name Player 2?")
-
 let p2 = new Player(playerName, deck2)
 gameOfWar.addPlayer(p2)
 
-if (confirm("Are you ready to begin?")){
-    gameOfWar.playRound()
+if (confirm("Are you ready to begin?\nHit cancel at any time to end the match")){
+    gameOfWar.play()
 } else {
     console.log("Come back when you are ready!")
 }
