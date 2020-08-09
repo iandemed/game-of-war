@@ -110,7 +110,7 @@ class Game{
             this.players[1].deck.addCards([drawnCards1, drawnCards2].flat())
 
         } else {
-            console.log(`Both players drew a ${compCard1.rank} of ${compCard1.suit}`)
+            console.log(`Both players drew a ${compCard1.rank}!`)
             console.log(`THIS MEANS WAR!`)
 
             
@@ -119,9 +119,32 @@ class Game{
     }
 
     goToWar(card1, card2){
-        let warPile1 = [...card1, this.players[0].deck.draw(), this.players[0].deck.draw()]
-        let warPile2 = [...card2, this.players[1].deck.draw(), this.players[1].deck.draw()]
+        
+        let warPile1 = []
+        let warPile2 = []
+        
+        switch (this.players[0].remainingCards()){
+            case 0:
+                warPile1.push(...card1)
+                break
+            case 1:
+                warPile1.push(...card1, this.players[0].deck.draw())
+                break
+            default:
+                warPile1.push(...card1, this.players[0].deck.draw(), this.players[0].deck.draw())
+        }
 
+        switch(this.players[1].remainingCards()){
+            case 0:
+                warPile2.push(...card2)
+                break
+            case 1:
+                warPile2.push(...card2, this.players[1].deck.draw())
+                break
+            default:
+                warPile2.push(...card1, this.players[1].deck.draw(), this.players[1].deck.draw())
+        }
+        
         this.compareCards(warPile1, warPile2)
     }
 }
