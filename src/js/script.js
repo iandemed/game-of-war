@@ -87,12 +87,17 @@ class Game{
 
     } 
 
+    /* Currently, I want this function to be as general as possible so that we can reuse it, therefore
+    it has to take arrays of cards rather than individual cards */
     compareCards(drawnCards1, drawnCards2)
     {
+        /* Have two seperate indexes to account for the case when players have gone to war and have 
+        unequal piles of cards */
         let i = drawnCards1.length - 1
+        let j = drawnCards2.length - 1
 
         let compCard1 = drawnCards1[i]
-        let compCard2 = drawnCards2[i]
+        let compCard2 = drawnCards2[j]
 
         console.log(compCard1)
         console.log(compCard2)
@@ -123,6 +128,7 @@ class Game{
         let warPile1 = []
         let warPile2 = []
         
+        /* In War, the player uses their last remaining card if they are unable to go to war */
         switch (this.players[0].remainingCards()){
             case 0:
                 warPile1.push(...card1)
@@ -147,6 +153,25 @@ class Game{
         
         this.compareCards(warPile1, warPile2)
     }
+
+    startGame(){
+
+        // Initialize the necessary arrays to create the deck
+        let suits = ['Spade', "Club", "Heart", "Diamond"]
+
+        let cardRanks = ['Two', 'Three', 'Four', 'Five', 
+                        'Six', 'Seven', 'Eight', 'Nine', 
+                        'Ten', 'Jack', 'Queen','King','Ace']              
+
+
+        let cardArray = [] 
+        // Create an array for a full 52 deck of cards
+        for (suit of suits){
+            for (let i = 0; i < cardRanks.length; i++){
+                cardArray.push(new Card(suit, cardRanks[i], i+2))
+            }
+        }
+    }
 }
 
 
@@ -161,13 +186,11 @@ let cardRanks = ['Two', 'Three', 'Four', 'Five',
 let cardArray = [] 
  
 // Create an array for a full 52 deck of cards
-for (suit of suits){
+for (let suit of suits){
     for (let i = 0; i < cardRanks.length; i++){
         cardArray.push(new Card(suit, cardRanks[i], i+2))
     }
 }
-
-let gameOfWar = new Game()
 
 let deck1 = new Deck(cardArray)
 deck1.shuffle()
@@ -175,12 +198,18 @@ deck1.shuffle()
 let deck2 = new Deck(deck1.split())
 
 
-let travis = new Player("Travis", deck1)
-gameOfWar.addPlayer(travis)
+let gameOfWar = new Game()
 
-let ian = new Player("Ian", deck2)
-gameOfWar.addPlayer(ian)
+let playerName = prompt("What is your name Player 1?")
+
+let p1 = new Player(playerName, deck1)
+gameOfWar.addPlayer(p1)
+
+playerName = prompt("What is your name Player 2?")
+
+let p2 = new Player(playerName, deck2)
+gameOfWar.addPlayer(p2)
 
 gameOfWar.playRound()
 
-console.log(ian.deck.length)
+console.log(p2.deck.length)
