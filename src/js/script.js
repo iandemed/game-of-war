@@ -24,6 +24,7 @@ class Deck{
 
     addCards(newCards){
         this.length += newCards.length
+        
         this.cards.push(...newCards)
     }
 
@@ -69,6 +70,7 @@ class Player{
 class Game{
     constructor(){
         this.players = []
+        this.war = false
     }
 
     addPlayer(newPlayer) {
@@ -78,34 +80,44 @@ class Game{
     }
 
     playRound(){
-        let player1Draw = this.players[0].deck.draw()
-        let player2Draw = this.players[1].deck.draw()
+
+        let player1Draw = [this.players[0].deck.draw()]
+        let player2Draw = [this.players[1].deck.draw()]
         
         this.compareCards(player1Draw, player2Draw)
 
     } 
 
-    compareCards(card1, card2){
-        if (card1.score > card2.score){
-            console.log(`${this.players[0].name} wins with a ${card1.rank} of ${card1.suit}s`)
-            console.log(`${this.players[1].name} drew a ${card2.rank} of ${card2.suit}s`)
+    compareCards(drawnCards1, drawnCards2)
+    {
+        let i = drawnCards1.length - 1
 
-            this.players[0].deck.addCards([card1, card2])
+        let compCard1 = drawnCards1[i]
+        let compCard2 = drawnCards2[i]
 
-        } else if (card1.score < card2.score){
-            console.log(`${this.players[1].name} wins with a ${card2.rank} of ${card2.suit}s`)
-            console.log(`${this.players[0].name} drew a ${card1.rank} of ${card1.suit}s`)
+        if (compCard1.score > compCard2.score){
+            console.log(`${this.players[0].name} wins with a ${compCard1.rank} of ${compCard1.suit}s`)
+            console.log(`${this.players[1].name} drew a ${compCard2.rank} of ${compCard2.suit}s`)
 
-            this.players[1].deck.addCards([card1, card2])
+            this.players[0].deck.addCards([drawnCards1, drawnCards2].flat())
+
+        } else if (compCard1.score < compCard2.score){
+            console.log(`${this.players[1].name} wins with a ${compCard2.rank} of ${compCard2.suit}s`)
+            console.log(`${this.players[0].name} drew a ${compCard1.rank} of ${compCard1.suit}s`)
+
+            this.players[1].deck.addCards([drawnCards1, drawnCards2].flat())
+
         } else {
-            console.log(`Both players drew a ${card1.rank} of ${card1.suit}`)
+            console.log(`Both players drew a ${compCard1.rank} of ${compCard1.suit}`)
             console.log(`THIS MEANS WAR!`)
         }
     }
 
     goToWar(card1, card2){
-        let warPile1 = [card1, this.players[0].deck.draw, this.players[0].deck.draw]
-        let warPile2 = [card, this.players[1].deck.draw, this.players[1].deck.draw]
+        let warPile1 = [...card1, this.players[0].deck.draw, this.players[0].deck.draw]
+        let warPile2 = [...card2, this.players[1].deck.draw, this.players[1].deck.draw]
+
+        this.compareCards(warPile1, warPile2)
 
     }
 }
@@ -142,5 +154,6 @@ gameOfWar.addPlayer(travis)
 let ian = new Player("Ian", deck2)
 gameOfWar.addPlayer(ian)
 
-
 gameOfWar.playRound()
+
+console.log(ian.deck)
