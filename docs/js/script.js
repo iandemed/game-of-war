@@ -162,7 +162,6 @@ class Game{
             ind2 += 2;
         }
 
-        console.log(ind1, ind2)
         this.compareCards(ind1, ind2)
     }
 
