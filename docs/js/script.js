@@ -1,8 +1,3 @@
-console.log("hello!");
-
-
-
-
 class Card{
     constructor(suit, rank, score){
         this.suit = suit
@@ -17,6 +12,9 @@ class Deck{
     this.length = cards.length
     }
 
+    /* Allow for the drawing of multiple cards in order to consolidate
+    code and to prevent working with large temporary arrays throughout the
+    entire program */
     draws(n=1){
         this.length -= n
         return this.cards.splice(0,n)
@@ -27,6 +25,7 @@ class Deck{
 
         let j, temp = null
 
+        // Implement the Fisher-Yates shuffle algorithm
         for (let i = newCards.length - 1; i > 0; i--) {
             j = Math.floor(Math.random() * (i+1))
             temp = newCards[i]
