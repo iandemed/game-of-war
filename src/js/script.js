@@ -149,10 +149,10 @@ class Game{
 
         /* In War, the player uses their last remaining card if they are unable to go to war */
         switch (this.players[0].remainingCards()){
-            case 0:
+            case 1:
                 ind1 = ind1
                 break
-            case 1:
+            case 2:
                 ind1 += 1
                 break
             default:
@@ -160,10 +160,10 @@ class Game{
         }
 
         switch(this.players[1].remainingCards()){
-            case 0:
+            case 1:
                 ind2 = ind2
                 break
-            case 1:
+            case 2:
                 ind2 += 1
                 break
             default:
@@ -177,21 +177,21 @@ class Game{
 
         while (this.gameOn){
             
+            this.playRound()
+
+            console.log(`${this.players[0].name} has ${this.players[0].remainingCards()}`)
+            console.log(`${this.players[1].name} has ${this.players[1].remainingCards()}`)
+            
+            if(!confirm("Are you ready for the next round?")){
+                console.log(`I'm still running!`)
+                this.gameOn = false;
+            }
+
             if(this.players[0].remainingCards() === 0){
                 this.gameOn = false;
             }
 
             if(this.players[1].remainingCards() === 0){
-                this.gameOn = false;
-            }
-            
-            this.playRound()
-
-            console.log(`${this.players[0].name} has ${this.players[0].remainingCards()}`)
-            console.log(`${this.players[1].name} has ${this.players[1].remainingCards()}`)
-
-            
-            if(!confirm("Are you ready for the next round?")){
                 this.gameOn = false;
             }
         }
@@ -205,8 +205,7 @@ class Game{
 let suits = ['Spade', "Club", "Heart", "Diamond"]
 
 let cardRanks = ['Two', 'Three', 'Four', 'Five', 
-                'Six', 'Seven', 'Eight', 'Nine', 
-                'Ten', 'Jack', 'Queen','King','Ace']              
+                'Six', 'Seven']              
 
 
 let cardArray = [] 
@@ -247,5 +246,3 @@ if (confirm("Are you ready to begin?\nHit cancel at any time to end the match"))
 } else {
     console.log("Come back when you are ready!")
 }
-
-gameOfWar.playRound()
