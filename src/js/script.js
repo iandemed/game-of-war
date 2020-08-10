@@ -17,15 +17,19 @@ class Deck{
     this.length = cards.length
     }
 
-    draw(){
-        this.length -= 1
-        return this.cards.shift()
+    draws(n=1){
+        this.length -= n
+        return this.cards.splice(0,n)
     }
 
     addCards(newCards){
         this.length += newCards.length
         
         this.cards.push(...newCards)
+    }
+
+    getScore(ind = 0){
+        return this.cards[ind].score
     }
 
     // Implement the Fisher-Yates shuffle algorithm
@@ -214,17 +218,28 @@ let deck2 = new Deck(deck1.split())
 let gameOfWar = new Game()
 
 /* Create player 1 and give them the appropriate deck*/
-let playerName = prompt("What is your name Player 1?")
+//let playerName = prompt("What is your name Player 1?")
+let playerName = "Ian"
 let p1 = new Player(playerName, deck1)
 gameOfWar.addPlayer(p1)
 
 /* Create player 2 and give them the appropriate deck*/
-playerName = prompt("What is your name Player 2?")
+// playerName = prompt("What is your name Player 2?")
+playerName = "Dillon"
 let p2 = new Player(playerName, deck2)
 gameOfWar.addPlayer(p2)
 
+/*
 if (confirm("Are you ready to begin?\nHit cancel at any time to end the match")){
     gameOfWar.play()
 } else {
     console.log("Come back when you are ready!")
 }
+*/
+
+console.log(deck1)
+
+console.log(deck1.draws())
+console.log(deck1.draws(5))
+
+console.log(deck1)
