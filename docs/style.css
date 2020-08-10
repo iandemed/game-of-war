@@ -1,3 +1,7 @@
+html{
+    height:100%;
+}
+
 body {
     background-color: #f9f7f7;
     color: #ffffff;
@@ -9,18 +13,42 @@ body {
     align-items: center;
 
     margin: 0px 5vmin;
-    height: 100vh;
     font-size: calc(32px + 1vw);
     overflow-y: scroll;
 }
 
 header{
     background-image: url("./imgs/playing-card-background.jpeg");
-    background-position: contain;
+    background-position: center;
     background-repeat: no-repeat;
 
     width: 100vw;
     margin-bottom: 2.5%;
+}
+
+nav{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background: #f9f7f7;
+    
+    box-sizing: border-box;
+    padding: 4px;
+}
+
+nav a{
+    color: #000000;
+    text-decoration: none;
+
+    font-size: 12px;
+    font-weight: 900;
+
+    padding: 10px;
+}
+
+.home{
+    border: 2px solid #000000;
+    border-radius: 5px;
 }
 
 h1 {
