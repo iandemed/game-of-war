@@ -28,10 +28,6 @@ class Deck{
         this.cards.push(...newCards)
     }
 
-    getScore(ind = 0){
-        return this.cards[ind].score
-    }
-
     // Implement the Fisher-Yates shuffle algorithm
     shuffle(){
         let j, temp = null
@@ -69,6 +65,18 @@ class Player{
     remainingCards(){
         return this.deck.length
     }
+
+    getScore(ind = 0){
+        return this.deck.cards[ind].score
+    }
+
+    getSuit(ind=0){
+        return this.deck.cards[ind].suit
+    }
+
+    getRank(ind=0){
+        return this.deck.cards[ind].rank
+    }
 }
 
 class Game{
@@ -83,49 +91,48 @@ class Game{
         }
     }
 
-    playRound(){
-
-        let player1Draw = [this.players[0].deck.draw()]
-        let player2Draw = [this.players[1].deck.draw()]
+    playRound(ind1 = 0, ind2 = 0){
         
-        return this.compareCards(player1Draw, player2Draw)
+        return this.compareCards(ind1,ind2)
 
     } 
 
     /* Currently, I want this function to be as general as possible so that we can reuse it, therefore
     it has to take arrays of cards rather than individual cards */
-    compareCards(drawnCards1, drawnCards2)
+    compareCards(ind1, ind2)
     {
         /* Have two seperate indexes to account for the case when players have gone to war and have 
         unequal piles of cards */
-        let i = drawnCards1.length - 1
-        let j = drawnCards2.length - 1
+        let p1Score = this.players[0].getScore(ind1)
+        let p2Score = this.players[1].getScore(ind2)
 
-        let compCard1 = drawnCards1[i]
-        let compCard2 = drawnCards2[j]
-
-        if (compCard1.score > compCard2.score){
+        if (p1Score > p2Score){
             
-            this.players[0].deck.addCards([drawnCards1, drawnCards2].flat())
-            
-            console.log(`${this.players[0].name} wins with a ${compCard1.rank} of ${compCard1.suit}s`)
-            console.log(`${this.players[1].name} drew a ${compCard2.rank} of ${compCard2.suit}s`)
+            console.log(`${this.players[0].name} wins with a ${this.players[0].getRank(ind1)} of ${this.players[0].getSuit(ind1)}s`)
+            console.log(`${this.players[1].name} drew a ${this.players[1].getRank(ind2)} of ${this.players[1].getSuit(ind2)}s`)
 
+            this.players[0].deck.addCards([this.players[0].deck.draws(ind1+1), 
+                                           this.players[1].deck.draws(ind2+1)].flat())
+            
             
 
-        } else if (compCard1.score < compCard2.score){
             
-            this.players[1].deck.addCards([drawnCards1, drawnCards2].flat())
+
+        } else if (p1Score < p2Score){
             
-            console.log(`${this.players[1].name} wins with a ${compCard2.rank} of ${compCard2.suit}s`)
-            console.log(`${this.players[0].name} drew a ${compCard1.rank} of ${compCard1.suit}s`)
+            console.log(`${this.players[1].name} wins with a ${this.players[1].getRank(ind2)} of ${this.players[1].getSuit(ind2)}s`)
+            console.log(`${this.players[0].name} drew a ${this.players[0].getRank(ind1)} of ${this.players[0].getSuit(ind1)}s`)
+
+            this.players[1].deck.addCards([this.players[0].deck.draws(ind1+1), 
+                                           this.players[1].deck.draws(ind2+1)].flat())
+                               
 
         } else {
-            console.log(`Both players drew a ${compCard1.rank}!`)
+            console.log(`Both players drew a ${this.players[0].getRank()}!`)
             console.log(`THIS MEANS WAR!`)
 
             
-            this.goToWar(drawnCards1, drawnCards2)
+           // this.goToWar(drawnCards1, drawnCards2)
         }
     }
 
@@ -237,9 +244,7 @@ if (confirm("Are you ready to begin?\nHit cancel at any time to end the match"))
 }
 */
 
-console.log(deck1)
+gameOfWar.playRound()
 
-console.log(deck1.draws())
-console.log(deck1.draws(5))
-
-console.log(deck1)
+console.log(p1.deck)
+console.log(p2.deck)
