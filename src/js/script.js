@@ -158,17 +158,26 @@ class Game{
 
     play(){
 
-        let msg = ""
-
         while (this.gameOn){
+            
+            if(this.players[0].remainingCards() === 0){
+                this.gameOn = false;
+            }
+
+            if(this.players[1].remainingCards() === 0){
+                this.gameOn = false;
+            }
+            
             this.playRound()
 
             console.log(`${this.players[0].name} has ${this.players[0].remainingCards()}`)
             console.log(`${this.players[1].name} has ${this.players[1].remainingCards()}`)
 
+            /*
             if(!confirm("Are you ready for the next round?")){
                 this.gameOn = false;
             }
+            */
         }
 
         console.log("Thank you for playing!")
