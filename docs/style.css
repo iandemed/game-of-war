@@ -63,6 +63,7 @@ section{
     background-color: #522546;
     border-radius: 16px;
     width: 90vw;
+    max-width: 1651px;
 
     display: flex;
     flex-direction: column;
