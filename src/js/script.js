@@ -172,8 +172,8 @@ class Game{
             
             this.playRound()
 
-            console.log(`${this.players[0].name} has ${this.players[0].remainingCards()}`)
-            console.log(`${this.players[1].name} has ${this.players[1].remainingCards()}`)
+            console.log(`${this.players[0].name} has ${this.players[0].remainingCards()} cards remaining`)
+            console.log(`${this.players[1].name} has ${this.players[1].remainingCards()} cards remaining`)
             
             if(!confirm("Are you ready for the next round?")){
                 this.gameOn = false;
@@ -190,7 +190,7 @@ class Game{
             }
         }
 
-        console.log("Thank you for playing!")
+        console.log("Thank you for playing! Refresh the page to play again!")
     }
 }
 
