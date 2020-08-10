@@ -2,25 +2,41 @@ body {
     background-color: #e23e57;
     color: #ffffff;
     height: 100vh;
+    
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
+
+    margin: 5vh, 0vh;
+    font-size: 64px;
 }
 
 h1 {
-    text-shadow: 2px 2px #311d3f;
-    font-size: 64px;
+    text-shadow: 4px 4px #311d3f;
+    font-size: 1.5em;
 }
 
 section{
     background-color: #522546;
-    border-radius: 8px;
+    border-radius: 16px;
     width: 90vw;
 
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
+}
+
+section ol {
+    margin: 0% 5% 5% 5%;
+}
+
+section h2{
+    font-size: 0.75em;
+}
+
+li {
+    font-size: 0.5em;
 }
 
