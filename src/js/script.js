@@ -132,39 +132,36 @@ class Game{
             console.log(`THIS MEANS WAR!`)
 
             
-           // this.goToWar(drawnCards1, drawnCards2)
+           this.goToWar(ind1, ind2)
         }
     }
 
-    goToWar(card1, card2){
-        
-        let warPile1 = []
-        let warPile2 = []
-        
+    goToWar(ind1, ind2){
+
         /* In War, the player uses their last remaining card if they are unable to go to war */
         switch (this.players[0].remainingCards()){
             case 0:
-                warPile1.push(...card1)
+                ind1 = ind1
                 break
             case 1:
-                warPile1.push(...card1, this.players[0].deck.draw())
+                ind1 += 1
                 break
             default:
-                warPile1.push(...card1, this.players[0].deck.draw(), this.players[0].deck.draw())
+                ind1 += 2
         }
 
         switch(this.players[1].remainingCards()){
             case 0:
-                warPile2.push(...card2)
+                ind2 = ind2
                 break
             case 1:
-                warPile2.push(...card2, this.players[1].deck.draw())
+                ind2 += 1
                 break
             default:
-                warPile2.push(...card1, this.players[1].deck.draw(), this.players[1].deck.draw())
+                ind2 += 2
         }
         
-        this.compareCards(warPile1, warPile2)
+        this.compareCards(ind1, ind2)
     }
 
     play(){
@@ -245,6 +242,3 @@ if (confirm("Are you ready to begin?\nHit cancel at any time to end the match"))
 */
 
 gameOfWar.playRound()
-
-console.log(p1.deck)
-console.log(p2.deck)
