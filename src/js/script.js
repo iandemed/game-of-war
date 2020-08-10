@@ -110,6 +110,7 @@ class Game{
     it has to take arrays of cards rather than individual cards */
     compareCards(ind1, ind2)
     {
+
         /* Have two seperate indexes to account for the case when players have gone to war and have 
         unequal piles of cards */
         let p1Score = this.players[0].getScore(ind1)
@@ -148,28 +149,20 @@ class Game{
     goToWar(ind1, ind2){
 
         /* In War, the player uses their last remaining card if they are unable to go to war */
-        switch (this.players[0].remainingCards()){
-            case 1:
-                ind1 = ind1
-                break
-            case 2:
-                ind1 += 1
-                break
-            default:
-                ind1 += 2
+        /* Adding 1 to the index represents the number of cards we are attempting to draw */
+        if (this.players[0].remainingCards() - (ind1+1) === 1){
+            ind1 += 1;
+        } else if (this.players[0].remainingCards() - (ind1+1) >= 2){
+            ind1 += 2;
         }
 
-        switch(this.players[1].remainingCards()){
-            case 1:
-                ind2 = ind2
-                break
-            case 2:
-                ind2 += 1
-                break
-            default:
-                ind2 += 2
+        if (this.players[1].remainingCards() - (ind2+1) === 1){
+            ind2 += 1;
+        } else if (this.players[1].remainingCards() - (ind2+1) >= 2){
+            ind2 += 2;
         }
-        
+
+        console.log(ind1, ind2)
         this.compareCards(ind1, ind2)
     }
 
@@ -183,15 +176,16 @@ class Game{
             console.log(`${this.players[1].name} has ${this.players[1].remainingCards()}`)
             
             if(!confirm("Are you ready for the next round?")){
-                console.log(`I'm still running!`)
                 this.gameOn = false;
             }
 
             if(this.players[0].remainingCards() === 0){
+                console.log(`${this.players[1].name} wins!`)
                 this.gameOn = false;
             }
 
             if(this.players[1].remainingCards() === 0){
+                console.log(`${this.players[0].name} wins!`)
                 this.gameOn = false;
             }
         }
@@ -204,8 +198,9 @@ class Game{
 // Initialize the necessary arrays to create the deck
 let suits = ['Spade', "Club", "Heart", "Diamond"]
 
-let cardRanks = ['Two', 'Three', 'Four', 'Five', 
-                'Six', 'Seven']              
+cardRanks = ['Two', 'Three', 'Four', 'Five', 
+                'Six', 'Seven', 'Eight', 'Nine', 
+                'Ten', 'Jack', 'Queen','King','Ace']            
 
 
 let cardArray = [] 
