@@ -24,7 +24,16 @@ class Deck{
 
     addCards(newCards){
         this.length += newCards.length
-        
+
+        let j, temp = null
+
+        for (let i = newCards.length - 1; i > 0; i--) {
+            j = Math.floor(Math.random() * (i+1))
+            temp = newCards[i]
+            newCards[i] = newCards[j]
+            newCards[j] = temp
+        }
+
         this.cards.push(...newCards)
     }
 
@@ -181,11 +190,10 @@ class Game{
             console.log(`${this.players[0].name} has ${this.players[0].remainingCards()}`)
             console.log(`${this.players[1].name} has ${this.players[1].remainingCards()}`)
 
-            /*
+            
             if(!confirm("Are you ready for the next round?")){
                 this.gameOn = false;
             }
-            */
         }
 
         console.log("Thank you for playing!")
@@ -222,23 +230,22 @@ let deck2 = new Deck(deck1.split())
 let gameOfWar = new Game()
 
 /* Create player 1 and give them the appropriate deck*/
-//let playerName = prompt("What is your name Player 1?")
-let playerName = "Ian"
+let playerName = prompt("What is your name Player 1?")
+//let playerName = "Ian"
 let p1 = new Player(playerName, deck1)
 gameOfWar.addPlayer(p1)
 
 /* Create player 2 and give them the appropriate deck*/
-// playerName = prompt("What is your name Player 2?")
-playerName = "Dillon"
+ playerName = prompt("What is your name Player 2?")
+//playerName = "Dillon"
 let p2 = new Player(playerName, deck2)
 gameOfWar.addPlayer(p2)
 
-/*
+
 if (confirm("Are you ready to begin?\nHit cancel at any time to end the match")){
     gameOfWar.play()
 } else {
     console.log("Come back when you are ready!")
 }
-*/
 
 gameOfWar.playRound()
